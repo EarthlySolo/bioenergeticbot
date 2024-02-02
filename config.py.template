@@ -1,0 +1,7 @@
+# credentials of developer access account
+consumer_key = ""
+consumer_secret = ""
+
+# reposter account tokens
+access_token = ""
+access_token_secret = ""

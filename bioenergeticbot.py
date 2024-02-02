@@ -5,7 +5,7 @@ import sys
 import time
 import requests
 import tweepy
-import credentials
+import config
 import logging
 from profanity_check import predict
 
@@ -28,17 +28,13 @@ logging.basicConfig(filename='reposter.log',
                     )
 
 # credentials of managing account
-consumer_key = credentials.consumer_key
-consumer_secret = credentials.consumer_secret
+consumer_key = config.consumer_key
+consumer_secret = config.consumer_secret
 # reposter account tokens
-access_token = credentials.access_token
-access_token_secret = credentials.access_token_secret
+access_token = config.access_token
+access_token_secret = config.access_token_secret
 
 # json for x rate limit reset time (epoch) and most recent posted thread id
-save_data = {"tid": 1,  # topic id
-             "reset_time": 0,  # time after which request can be retried
-             "failures": 0  # consecutive failed tweets for exponential backoff
-             }
 with open('save_data.json', 'r') as reader:
     save_data = json.load(reader)
 

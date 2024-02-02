@@ -1,1 +1,3 @@
 *.log
+config.py
+save_data.json
