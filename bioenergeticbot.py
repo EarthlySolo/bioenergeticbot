@@ -5,13 +5,13 @@ import sys
 import time
 import requests
 import tweepy
-import config
+from config import ignore_categories, consumer_key, consumer_secret, access_token, access_token_secret
 import logging
 from profanity_check import predict
 
 
-# make tags usable for twitter
 def make_tag(tag: str):
+    """make tags usable for twitter"""
     # split at occurence of nonalphanumeric
     words = re.split(r'[\W_]+', tag)
     words = [word.capitalize() for word in words]
@@ -19,20 +19,12 @@ def make_tag(tag: str):
     pass
 
 
-ignore_categories = ["The Junkyard", "Products", "Meta", ""]
-
 logging.basicConfig(filename='reposter.log',
                     level=logging.INFO,
                     format='%(asctime)s %(levelname)s: %(message)s',
                     datefmt='%d.%m.%y %H:%M:%S %Z'
                     )
 
-# credentials of managing account
-consumer_key = config.consumer_key
-consumer_secret = config.consumer_secret
-# reposter account tokens
-access_token = config.access_token
-access_token_secret = config.access_token_secret
 
 # json for x rate limit reset time (epoch) and most recent posted thread id
 with open('save_data.json', 'r') as reader:
@@ -48,7 +40,7 @@ if wait_time > 0:
 client = tweepy.Client(
     consumer_key=consumer_key, consumer_secret=consumer_secret,
     access_token=access_token, access_token_secret=access_token_secret,
-    # to access x-rate-limit-remaining header. breaks response.data['id']
+    # to access x-rate-limit-remaining header. probably breaks response.data['id']
     # return_type=requests.Response
 )
 base_url = "https://bioenergetic.forum/"

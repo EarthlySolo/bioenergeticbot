@@ -5,3 +5,5 @@ consumer_secret = ""
 # reposter account tokens
 access_token = ""
 access_token_secret = ""
+
+ignore_categories = []
