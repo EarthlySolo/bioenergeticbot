@@ -26,7 +26,7 @@ logging.basicConfig(filename='reposter.log',
                     )
 
 
-# json for x rate limit reset time (epoch) and most recent posted thread id
+# json for x-rate-limit-reset time (epoch) and most recently posted topic id
 with open('save_data.json', 'r') as reader:
     save_data = json.load(reader)
 
@@ -40,14 +40,14 @@ if wait_time > 0:
 client = tweepy.Client(
     consumer_key=consumer_key, consumer_secret=consumer_secret,
     access_token=access_token, access_token_secret=access_token_secret,
-    # to access x-rate-limit-remaining header. probably breaks response.data['id']
+    # to access x-rate-limit-remaining header. probably breaks access to response.data['id']
     # return_type=requests.Response
 )
 base_url = "https://bioenergetic.forum/"
 api_url = base_url + "api/recent/posts/day"
 
 # there's no way to only list new topics chronologically
-# find all new topics since the last run using recent_tid
+# find all new topics since the last run using save_data['tid']
 new_topic_list = []
 found = False
 # arbitrary limit
