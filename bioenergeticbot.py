@@ -75,12 +75,11 @@ for page in range(1, 6):
 if not new_topic_list:
     logging.info("No new topics.")
 
-# rate_limit_remaining = 1
 for topic in reversed(new_topic_list):
     title = html.unescape(topic['topic']['titleRaw'])
     author = html.unescape(topic['user']['displayname'])
     link = base_url + "topic/" + str(topic['tid'])
-    category = topic['category']['name']
+    category = html.unescape(topic['category']['name'])
     tag_list = [html.unescape(t['value']) for t in topic['topic']['tags']] if len(topic['topic']['tags']) > 0 else []
     tags = " ".join([make_tag(t) for t in tag_list]) if len(tag_list) > 0 else ""
     tweet_text = """
@@ -100,7 +99,6 @@ for topic in reversed(new_topic_list):
     try:
         # if rate_limit_remaining > 0:
         response = client.create_tweet(text=tweet_text)
-        # print(response)
         logging.info(f"Tweet posted at https://twitter.com/bioenergeticbot/status/{response.data['id']}")
         save_data['failures'] = 0
         # if hasattr(response, "headers") and response.headers['x-rate-limit-remaining'] is not None:
