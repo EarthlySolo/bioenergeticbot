@@ -1,3 +1,5 @@
 *.log
 config.py
 save_data.json
+__pycache__
+*.sh
